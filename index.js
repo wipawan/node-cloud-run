@@ -1,12 +1,12 @@
-// const tracer = require("dd-trace").init();
+const tracer = require("dd-trace").init();
 const express = require("express");
 const app = express();
 
 const PORT = 8080;
 
-// tracer.init();
+tracer.init();
 
-app.get("/", (req, res) => {
+app.get("/hello", (req, res) => {
   const response = {
     message: "Hello, World!",
     timestamp: new Date(),
