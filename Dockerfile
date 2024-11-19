@@ -11,6 +11,7 @@ COPY . .
 
 EXPOSE 8080
 
+ENV NODE_OPTIONS="--require dd-trace/init"
 ENV DD_SERVICE=datadog-demo-run-nodejs
 ENV DD_ENV=datadog-demo
 ENV DD_VERSION=1
