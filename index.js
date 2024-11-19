@@ -4,6 +4,8 @@ const app = express();
 
 const PORT = 8080;
 
+tracer.init();
+
 app.get("/", (req, res) => {
   const response = {
     message: "Hello, World!",
