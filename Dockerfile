@@ -9,7 +9,7 @@ RUN npm install --prefix /dd_tracer/node dd-trace@latest-node16  --save
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 ENV DD_SERVICE=datadog-demo-run-nodejs
 ENV DD_ENV=datadog-demo
