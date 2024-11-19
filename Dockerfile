@@ -18,4 +18,4 @@ ENV DD_VERSION=1
 
 # ENTRYPOINT ["/app/datadog-init"]
 
-CMD [ "node", "app.js" ]
+CMD [ "node", "index.js" ]
