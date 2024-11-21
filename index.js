@@ -6,6 +6,12 @@ const PORT = 8080;
 
 tracer.init();
 
+require("@google-cloud/profiler")
+  .start()
+  .catch((err) => {
+    console.log(`Failed to start profiler: ${err}`);
+  });
+
 app.get("/hello", (req, res) => {
   const response = {
     message: "Hello, World!",
