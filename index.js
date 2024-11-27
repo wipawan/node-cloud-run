@@ -4,21 +4,37 @@ const app = express();
 
 const PORT = 8080;
 
+const recursiveFunction = (counter, callback) => {
+  if (counter <= 0) {
+    if (callback) callback();
+    return;
+  }
+
+  // Wait for 1 second before the next recursion
+  setTimeout(() => {
+    recursiveFunction(counter - 1, callback);
+  }, 1000);
+};
+
 tracer.init();
 
-// require("@google-cloud/profiler")
-//   .start()
-//   .catch((err) => {
-//     console.log(`Failed to start profiler: ${err}`);
-//   });
+require("@google-cloud/profiler")
+  .start({
+    serviceContext: {
+      service: "simple-nodejs",
+      version: "1.0.0",
+    },
+  })
+  .catch((err) => {
+    console.log(`Failed to start profiler: ${err}`);
+  });
 
 app.get("/hello", (req, res) => {
   const response = {
     message: "Hello, World!",
     timestamp: new Date(),
   };
-
-  res.json(response);
+  recursiveFunction(5, () => res.json(response));
 });
 
 // Start the server
