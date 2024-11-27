@@ -4,6 +4,13 @@ const app = express();
 
 const PORT = 8080;
 
+tracer.init({
+  profiling: true,
+  // env: "local",
+  // service: "simple-nodejs",
+  // version: "1.0.0",
+});
+
 const recursiveFunction = (counter, callback) => {
   if (counter <= 0) {
     if (callback) callback();
@@ -15,8 +22,6 @@ const recursiveFunction = (counter, callback) => {
     recursiveFunction(counter - 1, callback);
   }, 1000);
 };
-
-tracer.init();
 
 require("@google-cloud/profiler")
   .start({
