@@ -6,9 +6,9 @@ const PORT = 8080;
 
 tracer.init({
   profiling: true,
-  // env: "local",
-  // service: "simple-nodejs",
-  // version: "1.0.0",
+  env: "local",
+  service: "simple-nodejs",
+  version: "1.0.0",
 });
 
 const recursiveFunction = (counter, callback) => {
