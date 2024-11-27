@@ -4,12 +4,7 @@ const app = express();
 
 const PORT = 8080;
 
-tracer.init({
-  profiling: true,
-  env: "local",
-  service: "simple-nodejs",
-  version: "1.0.0",
-});
+tracer.init();
 
 const recursiveFunction = (counter, callback) => {
   if (counter <= 0) {
