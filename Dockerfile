@@ -4,7 +4,8 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
-COPY --from=datadog/serverless-init:1 /datadog-init /app/datadog-init
+COPY --from=datadog/serverless-init:1 /datadog-init /home/datadog-init
+RUN ls -la /home
 # RUN npm install --prefix /dd_tracer/node dd-trace@3  --save
 RUN npm install
 
