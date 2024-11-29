@@ -12,6 +12,6 @@ COPY . .
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/datadog-init"]
+ENTRYPOINT ["/home/node/app/datadog-init"]
 
 CMD [ "node", "index.js" ]
