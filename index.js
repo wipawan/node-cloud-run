@@ -18,17 +18,6 @@ const recursiveFunction = (counter, callback) => {
   }, 1000);
 };
 
-require("@google-cloud/profiler")
-  .start({
-    serviceContext: {
-      service: "simple-nodejs",
-      version: "1.0.0",
-    },
-  })
-  .catch((err) => {
-    console.log(`Failed to start profiler: ${err}`);
-  });
-
 app.get("/hello", (req, res) => {
   const response = {
     message: "Hello, World!",
