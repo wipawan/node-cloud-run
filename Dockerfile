@@ -1,19 +1,19 @@
-FROM node:20
+FROM node:14-alpine
 
 WORKDIR /home/node/app
 
 COPY package*.json ./
 
-# COPY --from=datadog/serverless-init:1 /datadog-init /home/datadog-init
-# RUN ls -la /
-# RUN ls -la /home
-# RUN npm install --prefix /dd_tracer/node dd-trace@3  --save
+COPY --from=datadog/serverless-init:1-alpine /datadog-init /home/datadog-init
+
 RUN npm install
 
 COPY . .
 
 EXPOSE 8080
 
-# ENTRYPOINT ["/app/datadog-init"]
+ENV NODE_OPTIONS="--require dd-trace/init"
 
-ENTRYPOINT [ "node", "index.js" ]
+ENTRYPOINT ["/app/datadog-init"]
+
+CMD [ "node", "index.js" ]
