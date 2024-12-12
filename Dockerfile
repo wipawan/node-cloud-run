@@ -1,10 +1,10 @@
 FROM node:14-alpine
 
-WORKDIR /home/node/app
+WORKDIR /app
 
 COPY package*.json ./
 
-COPY --from=datadog/serverless-init:1-alpine /datadog-init /home/datadog-init
+COPY --from=datadog/serverless-init:1-alpine /datadog-init /app/datadog-init
 
 RUN npm install
 
