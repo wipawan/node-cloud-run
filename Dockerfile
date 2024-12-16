@@ -1,13 +1,11 @@
-FROM node:14-alpine
-
+FROM node:20
 WORKDIR /app
 
 COPY package*.json ./
 
-COPY --from=datadog/serverless-init:1-alpine /datadog-init /app/datadog-init
+COPY --from=datadog/serverless-init:1 /datadog-init /app/datadog-init
 
 RUN npm install
-RUN npm install dd-trace@3  --save
 
 COPY . .
 

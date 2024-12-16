@@ -20,7 +20,8 @@ app.get("/hello", (req, res) => {
     message: "Hello, World!",
     timestamp: new Date(),
   };
-  recursiveFunction(5, () => res.json(response));
+  // recursiveFunction(5, () => res.json(response));
+  res.json(response);
 });
 
 // Start the server
