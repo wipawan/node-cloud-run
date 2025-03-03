@@ -3,11 +3,14 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install && npm install --save dd-trace
 
 COPY . .
 
 EXPOSE 8080
+
+ENV DD_SERVICE="simple-node-app"
+ENV DD_ENV="staging"
 
 ENV NODE_OPTIONS="--require dd-trace/init"
 

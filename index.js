@@ -9,18 +9,20 @@ const logger = createLogger({
   level: "info",
   exitOnError: false,
   format: format.json(),
-  transports: [
-    new transports.File({ filename: `/shared-volume/logs/app.log` }),
-  ],
+  // transports: [
+  //   new transports.File({ filename: `/shared-volume/logs/app.log` }),
+  // ],
 });
 
 app.get("/", (_, res) => {
   logger.info("Welcome!");
+  console.log("Welcome from console!");
   res.sendStatus(200);
 });
 
 app.get("/hello", (_, res) => {
   logger.info("Hello!");
+  console.log("Hello from console!");
   metricPrefix = "nodejs-cloudrun";
   // Send three unique metrics, just so we're testing more than one single metric
   // metricsToSend = ["sample_metric_1", "sample_metric_2", "sample_metric_3"];
