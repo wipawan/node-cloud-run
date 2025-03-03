@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install && npm install --save dd-trace
+RUN npm install
 
 COPY . .
 
