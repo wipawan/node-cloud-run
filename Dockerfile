@@ -9,9 +9,6 @@ COPY . .
 
 EXPOSE 8080
 
-ENV DD_SERVICE="simple-node-app"
-ENV DD_ENV="staging"
-
 ENV NODE_OPTIONS="--require dd-trace/init"
 
 # ENTRYPOINT ["/app/datadog-init"]
