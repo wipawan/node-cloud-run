@@ -19,7 +19,11 @@ const logger = createLogger({
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, traceparent");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, traceparent",
+    "tracestate"
+  );
 
   if (req.method === "OPTIONS") {
     return res.sendStatus(204);
