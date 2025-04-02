@@ -54,10 +54,11 @@ app.get("/", (_, res) => {
 
   if (shouldFail) {
     logger.info("❌ Simulated error");
+    const errMsg = "Simulated server error 💥";
+    const span = tracer.scope().active();
+    span.setTag("error.message", errMsg);
     return res.status(500).json({
-      error: {
-        message: "Simulated server error 💥",
-      },
+      error: errMsg,
     });
   }
 
