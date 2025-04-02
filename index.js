@@ -1,8 +1,8 @@
 // const tracer = require("dd-trace").init({
 //   logInjection: true,
 // });
-// const tracer = require("dd-trace");
-// const formats = require("dd-trace/ext/formats");
+const tracer = require("dd-trace");
+const formats = require("dd-trace/ext/formats");
 const express = require("express");
 const app = express();
 const { createLogger, format, transports } = require("winston");
@@ -16,6 +16,19 @@ const logger = createLogger({
     // new transports.File({ filename: `./shared-volume/logs/app.log` }),
   ],
 });
+
+const consoleLogger = function (message) {
+  const level = "INFO";
+  const span = tracer.scope().active();
+  const time = new Date().toISOString();
+  const record = { time, level, message };
+
+  if (span) {
+    tracer.inject(span.context(), formats.LOG, record);
+  }
+
+  console.log(JSON.stringify(record));
+};
 
 // Allow all origins
 app.use((req, res, next) => {
@@ -35,12 +48,16 @@ app.use((req, res, next) => {
 
 app.get("/", (_, res) => {
   logger.info("Welcome!");
-  console.log("Welcome from console!");
+  consoleLogger("Welcome from console!");
   const shouldFail = Math.random() < 0.5; // 50% chance of error
 
   if (shouldFail) {
     logger.info("❌ Simulated error");
-    return res.status(500).json({ error: "Simulated server error 💥" });
+    return res.status(500).json({
+      error: {
+        message: "Simulated server error 💥",
+      },
+    });
   }
 
   logger.info("✅ Success response");
