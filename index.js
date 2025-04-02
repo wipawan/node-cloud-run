@@ -1,6 +1,8 @@
 // const tracer = require("dd-trace").init({
 //   logInjection: true,
 // });
+// const tracer = require("dd-trace");
+// const formats = require("dd-trace/ext/formats");
 const express = require("express");
 const app = express();
 const { createLogger, format, transports } = require("winston");
@@ -11,7 +13,7 @@ const logger = createLogger({
   format: format.json(),
   transports: [
     new transports.Console(),
-    new transports.File({ filename: `./shared-volume/logs/app.log` }),
+    // new transports.File({ filename: `./shared-volume/logs/app.log` }),
   ],
 });
 
