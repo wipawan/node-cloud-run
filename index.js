@@ -17,17 +17,18 @@ const logger = createLogger({
   ],
 });
 
-const consoleLogger = function (message) {
+const originalConsoleLogger = console.log;
+console.log = function (...args) {
   const level = "INFO";
   const span = tracer.scope().active();
   const time = new Date().toISOString();
-  const record = { time, level, message };
+  const record = { time, level, message: args.join(" ") };
 
   if (span) {
     tracer.inject(span.context(), formats.LOG, record);
   }
 
-  console.log(JSON.stringify(record));
+  originalConsoleLogger(JSON.stringify(record));
 };
 
 // Allow all origins
@@ -48,7 +49,7 @@ app.use((req, res, next) => {
 
 app.get("/", (_, res) => {
   logger.info("Welcome!");
-  consoleLogger("Welcome from console!");
+  console.log("Welcome from console!");
   const shouldFail = Math.random() < 0.5; // 50% chance of error
 
   if (shouldFail) {
