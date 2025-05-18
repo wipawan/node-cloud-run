@@ -1,8 +1,8 @@
 // const tracer = require("dd-trace").init({
 //   logInjection: true,
 // });
-const tracer = require("dd-trace");
-const formats = require("dd-trace/ext/formats");
+// const tracer = require("dd-trace");
+// const formats = require("dd-trace/ext/formats");
 const express = require("express");
 const app = express();
 const { createLogger, format, transports } = require("winston");
@@ -17,19 +17,19 @@ const logger = createLogger({
   ],
 });
 
-const originalConsoleLogger = console.log;
-console.log = function (...args) {
-  const level = "INFO";
-  const span = tracer.scope().active();
-  const time = new Date().toISOString();
-  const record = { time, level, message: args.join(" ") };
+// const originalConsoleLogger = console.log;
+// console.log = function (...args) {
+//   const level = "INFO";
+//   const span = tracer.scope().active();
+//   const time = new Date().toISOString();
+//   const record = { time, level, message: args.join(" ") };
 
-  if (span) {
-    tracer.inject(span.context(), formats.LOG, record);
-  }
+//   if (span) {
+//     tracer.inject(span.context(), formats.LOG, record);
+//   }
 
-  originalConsoleLogger(JSON.stringify(record));
-};
+//   originalConsoleLogger(JSON.stringify(record));
+// };
 
 // Allow all origins
 app.use((req, res, next) => {
@@ -55,8 +55,8 @@ app.get("/", (_, res) => {
   if (shouldFail) {
     logger.info("❌ Simulated error");
     const errMsg = "Simulated server error 💥";
-    const span = tracer.scope().active();
-    span.setTag("error.message", errMsg);
+    // const span = tracer.scope().active();
+    // span.setTag("error.message", errMsg);
     return res.status(500).json({
       error: errMsg,
     });
